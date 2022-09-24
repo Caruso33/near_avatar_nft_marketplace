@@ -1,5 +1,6 @@
 import { Avatar, listedAvatars } from "./model"
 import { ContractPromiseBatch, context, u128 } from "near-sdk-as"
+import { console } from "assemblyscript/std/assembly/bindings/dom"
 
 export function setAvatar(avatar: Avatar): void {
   let storedAvatar = listedAvatars.get(avatar.id)
@@ -22,7 +23,7 @@ export function getAvatars(): Avatar[] {
 export function setAvatarOnSale(
   id: string,
   isOnSale: bool,
-  price?: u128
+  price: u128
 ): Avatar {
   let avatar = listedAvatars.get(id)
 
@@ -30,6 +31,7 @@ export function setAvatarOnSale(
     throw new Error("avatar not found")
   }
 
+  console.log("sender", context.sender, avatar.owner)
   if (!avatar.owner || avatar.owner !== context.sender) {
     throw new Error(`avatar isn't owned by sender`)
   }
@@ -46,6 +48,10 @@ export function buyAvatar(avatarId: string): void {
 
   if (avatar == null) {
     throw new Error("avatar not found")
+  }
+
+  if (!avatar.isOnSale) {
+    throw new Error("avatar not on sale")
   }
 
   if (avatar.price.toString() != context.attachedDeposit.toString()) {

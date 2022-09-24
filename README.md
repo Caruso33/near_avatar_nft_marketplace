@@ -1,5 +1,9 @@
 # Avatar NFT Marketplace
 
+Based on [the repo](https://github.com/dacadeorg/near-marketplace-dapp/tree/master/smartcontract0)
+
+and [the dacade course](https://dacade.org/communities/near/courses/near-101)
+
 ## Docs
 
 ### Contract address
@@ -62,4 +66,10 @@ View call: avatar_nft_marketplace.caruso33.testnet.getAvatar({"id": "0"})
   ownerHistory: []
 }
 ✨  Done in 1.82s.
+```
+
+### Buying
+
+```shell
+yarn near call avatar_nft_marketplace.caruso33.testnet buyAvatar '{"avatarId": "0"}' --accountId=subacc1.caruso33.testnet
 ```

@@ -29,12 +29,9 @@ export class Avatar {
     return avatar
   }
 
-  public setOnSale(isOnSale: bool, price?: u128): void {
+  public setOnSale(isOnSale: bool, price: u128): void {
     this.isOnSale = isOnSale
-
-    if (price) {
-      this.price = price
-    }
+    this.price = price
   }
 
   public setNewOwner(owner: string): void {

@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "mkdir -p out && rm -f ./out/main.wasm && cp ./build/release/near_avatar_nft_marketplace.wasm ./out/main.wasm",
+    "test": "yarn build && ava --verbose",
     "login": "yarn near login",
     "create:subaccount": "yarn near create-account ${SUBACCOUNT_ID}.${ACCOUNT_ID} --masterAccount ${ACCOUNT_ID} --initialBalance ${INITIAL_BALANCE}",
     "asb": "asb",
@@ -17,6 +19,7 @@
     "near-cli": "^3.4.2"
   },
   "devDependencies": {
+    "ava": "^4.3.3",
     "near-sdk-as": "^3.2.3"
   }
 }
