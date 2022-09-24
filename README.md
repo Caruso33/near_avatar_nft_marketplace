@@ -68,8 +68,18 @@ View call: avatar_nft_marketplace.caruso33.testnet.getAvatar({"id": "0"})
 ✨  Done in 1.82s.
 ```
 
+### Set on Sale
+
+```shell
+❯ yarn near call avatar_nft_marketplace.caruso33.testnet setAvatarOnSale '{"id": "0", "isOnSale": false, "price": "1000000000000000000000000"}' --accountId=caruso33.testnet
+```
+
 ### Buying
 
 ```shell
-yarn near call avatar_nft_marketplace.caruso33.testnet buyAvatar '{"avatarId": "0"}' --accountId=subacc1.caruso33.testnet
+yarn near call avatar_nft_marketplace.caruso33.testnet buyAvatar '{"id": "0"}' --accountId=subacc1.caruso33.testnet
 ```
+
+## Testing
+
+[Setup instructions](https://docs.near.org/develop/testing/introduction)

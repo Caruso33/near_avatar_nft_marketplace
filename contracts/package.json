@@ -4,11 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "asb": "asb",
     "build": "mkdir -p out && rm -f ./out/main.wasm && cp ./build/release/near_avatar_nft_marketplace.wasm ./out/main.wasm",
+    "compile": "node scripts/compile",
     "test": "yarn build && ava --verbose",
+    "test:asp": "yarn asp --nologo",
     "login": "yarn near login",
     "create:subaccount": "yarn near create-account ${SUBACCOUNT_ID}.${ACCOUNT_ID} --masterAccount ${ACCOUNT_ID} --initialBalance ${INITIAL_BALANCE}",
-    "asb": "asb",
     "deploy": "near deploy --accountId=${ACCOUNT_ID} --wasmFile=${PATH_TO_WASM}",
     "call": "near call ${CONTRACT_ACCOUNT_ID} ${METHOD_NAME} ${PAYLOAD} --accountId=${ACCOUNT_ID}",
     "view": "near view ${CONTRACT_ACCOUNT_ID} ${METHOD_NAME} ${PAYLOAD}"
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "ava": "^4.3.3",
-    "near-sdk-as": "^3.2.3"
+    "near-sdk-as": "^3.2.3",
+    "shelljs": "^0.8.5"
   }
 }
