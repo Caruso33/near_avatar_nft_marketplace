@@ -13,18 +13,24 @@ export function getAvatar(id) {
   return window.contract.getAvatar(id)
 }
 
-export function getAvatars() {
-  return window.contract.getAvatars()
+export async function getAvatars() {
+  const avatars = await window.contract.getAvatars()
+  console.log("GetAvatars", avatars)
+  return avatars
 }
 
-export async function setAvatarOnSale(id, isOnSale, price) {
-  console.log("Not implemented", id, isOnSale, price)
+export function setAvatarOnSale(id, isOnSale, price) {
+  return window.contract.setAvatarOnSale({
+    id,
+    isOnSale,
+    price: parseNearAmount(price + ""),
+  })
 }
 
-export async function buyAvatar({ id, price }) {
-  await window.contract.buyAvatar({ avatarId: id }, GAS, price)
+export function buyAvatar({ id, price }) {
+  return window.contract.buyAvatar({ avatarId: id }, GAS, price)
 }
 
-export async function burnAvatar(id) {
-  return await window.contract.burnAvatar(id)
+export function burnAvatar(id) {
+  return window.contract.burnAvatar(id)
 }

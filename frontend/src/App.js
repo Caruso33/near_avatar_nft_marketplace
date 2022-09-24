@@ -1,12 +1,12 @@
-import React, { useEffect, useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { Container, Nav } from "react-bootstrap"
-import { login, logout as destroy, accountBalance } from "./utils/near"
-import Wallet from "./components/Wallet"
-import { Notification } from "./components/utils/Notifications"
+import "./App.css"
+import coverImg from "./assets/img/sandwich.jpg"
 import Avatars from "./components/marketplace/Avatars"
 import Cover from "./components/utils/Cover"
-import coverImg from "./assets/img/sandwich.jpg"
-import "./App.css"
+import { Notification } from "./components/utils/Notifications"
+import Wallet from "./components/Wallet"
+import { accountBalance, login, logout as destroy } from "./utils/near"
 
 const App = function AppWrapper() {
   const account = window.walletConnection.account()
@@ -17,7 +17,7 @@ const App = function AppWrapper() {
     if (account.accountId) {
       setBalance(await accountBalance())
     }
-  })
+  }, [account.accountId])
 
   useEffect(() => {
     getBalance()

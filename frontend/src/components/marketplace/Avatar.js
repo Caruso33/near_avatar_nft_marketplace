@@ -3,16 +3,27 @@ import { utils } from "near-api-js"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 import { Badge, Button, Card, Col, Stack } from "react-bootstrap"
+import AvatarIsOnSale from "./AvatarIsOnSale"
 
-const Avatar = ({ avatar, buy }) => {
+const Avatar = ({ avatar, buy, unSale, burn }) => {
   const { id, price, name, description, isOnSale, uri, owner, ownerHistory } =
     avatar
+
+  const isOwner = window.accountId === owner
 
   const [image, setImage] = useState("")
   const [isImageLoading, setIsImageLoading] = useState(false)
 
   const triggerBuy = () => {
     buy(id, price)
+  }
+
+  const triggerUnSale = (newIsOnSale, newPrice) => {
+    return unSale(id, newIsOnSale, newPrice)
+  }
+
+  const triggerBurn = () => {
+    burn(id)
   }
 
   useEffect(() => {
@@ -45,7 +56,7 @@ const Avatar = ({ avatar, buy }) => {
             <span className="font-monospace text-secondary">{owner}</span>
 
             <Badge bg="secondary" className="ms-auto">
-              {isOnSale ? "on sale" : "sold"}
+              {!owner ? "burned" : isOnSale ? "on sale" : "sold"}
             </Badge>
           </Stack>
         </Card.Header>
@@ -63,13 +74,27 @@ const Avatar = ({ avatar, buy }) => {
             <span>{ownerHistory.join(", ")}</span>
           </Card.Text>
 
-          <Button
-            variant="outline-dark"
-            onClick={triggerBuy}
-            className="w-100 py-3"
-          >
-            Buy for {utils.format.formatNearAmount(price)} NEAR
-          </Button>
+          {isOwner ? (
+            <>
+              <AvatarIsOnSale avatar={avatar} triggerUnSale={triggerUnSale} />
+
+              <Button
+                variant="outline-dark"
+                onClick={triggerBurn}
+                className="w-100 py-3 mt-3"
+              >
+                Burn
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="outline-dark"
+              onClick={triggerBuy}
+              className="w-100 py-3"
+            >
+              Buy for {utils.format.formatNearAmount(price)} NEAR
+            </Button>
+          )}
         </Card.Body>
       </Card>
     </Col>
@@ -79,6 +104,8 @@ const Avatar = ({ avatar, buy }) => {
 Avatar.propTypes = {
   avatar: PropTypes.instanceOf(Object).isRequired,
   buy: PropTypes.func.isRequired,
+  unSale: PropTypes.func.isRequired,
+  burn: PropTypes.func.isRequired,
 }
 
 export default Avatar

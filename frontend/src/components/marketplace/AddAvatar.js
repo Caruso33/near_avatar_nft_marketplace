@@ -29,6 +29,7 @@ const AddAvatar = ({ save }) => {
         <Modal.Header closeButton>
           <Modal.Title>New Avatar</Modal.Title>
         </Modal.Header>
+
         <Form>
           <Modal.Body>
             <FloatingLabel
@@ -41,9 +42,10 @@ const AddAvatar = ({ save }) => {
                 onChange={(e) => {
                   setName(e.target.value)
                 }}
-                placeholder="Enter name of product"
+                placeholder="Enter name of avatar"
               />
             </FloatingLabel>
+
             <FloatingLabel
               controlId="inputUrl"
               label="Image URL"
@@ -57,6 +59,7 @@ const AddAvatar = ({ save }) => {
                 }}
               />
             </FloatingLabel>
+
             <FloatingLabel
               controlId="inputDescription"
               label="Description"
@@ -117,7 +120,7 @@ const AddAvatar = ({ save }) => {
               handleClose()
             }}
           >
-            Save product
+            Save Avatar
           </Button>
         </Modal.Footer>
       </Modal>
